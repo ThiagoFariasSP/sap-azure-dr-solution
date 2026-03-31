@@ -1,0 +1,105 @@
+# Workload Tiering for SAP on Azure Disaster Recovery
+
+Not all SAP systems have the same business impact.  
+Workload tiering allows organizations to align **cost, recovery objectives, and architecture complexity** with real business needs.
+
+This document describes a common tiering model used for SAP landscapes on Azure.
+
+---
+
+## Tier 0 — Mission Critical SAP Systems
+
+### Examples
+- SAP S/4HANA Production
+- SAP ECC Production
+- Central Finance
+- Payroll systems
+
+### Characteristics
+- Direct impact on revenue, legal compliance, or business operations
+- Downtime can stop the business
+- Very low tolerance for data loss
+
+### Typical DR Design
+- Multi-region Disaster Recovery
+- Active / Passive configuration
+- Warm standby in DR region
+- SAP HANA System Replication
+
+**Typical Objectives**
+- RPO: seconds to minutes  
+- RTO: minutes to ~1 hour
+
+---
+
+## Tier 1 — Business Critical SAP Systems
+
+### Examples
+- SAP Quality Assurance (QA)
+- SAP Pre-Production
+- Planning or reporting systems
+
+### Characteristics
+- Important for business continuity
+- Short downtime acceptable
+- Some data loss tolerable
+
+### Typical DR Design
+- Cold or warm standby
+- Reduced DR footprint
+- Smaller VM sizes in secondary region
+
+**Typical Objectives**
+- RPO: minutes to hours  
+- RTO: hours
+
+---
+
+## Tier 2 / Tier 3 — Non-Critical SAP Systems
+
+### Examples
+- SAP Development
+- SAP Sandbox
+- Training systems
+
+### Characteristics
+- Downtime acceptable
+- Data loss acceptable
+- Used mainly for testing or learning
+
+### Typical DR Design
+- Backup and restore only
+- No dedicated DR region
+- Lowest possible cost
+
+**Typical Objectives**
+- RPO: hours to days  
+- RTO: days
+
+---
+
+## Why Tiering Is Essential for SAP DR
+
+Tiering prevents overengineering and unnecessary cost.
+
+Key principle:
+
+> A mature SAP DR strategy does not treat all systems equally.  
+> Recovery investment must reflect real business impact.
+
+Tiering is also a prerequisite for:
+- Cost optimization
+- Clear DR runbooks
+- Executive decision-making during incidents
+
+---
+
+## Relationship to Cost Considerations
+
+Tiering directly influences:
+- VM sizing in DR
+- Storage replication strategy
+- Licensing requirements
+- Automation level
+
+For this reason, tiering and cost considerations must always be defined together.
