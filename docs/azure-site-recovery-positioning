@@ -1,0 +1,92 @@
+# Azure Site Recovery (ASR) Positioning for SAP on Azure
+
+Azure Site Recovery (ASR) is a native Azure service for disaster recovery of virtual machines.  
+While ASR is widely used for many workloads, **it is not the primary DR mechanism for SAP HANA-based systems**.
+
+This document explains where ASR fits — and where it does not — in SAP architectures.
+
+---
+
+## What Azure Site Recovery Does Well
+
+Azure Site Recovery:
+- Replicates Azure Virtual Machines to another region
+- Automates VM failover and failback
+- Reduces operational effort for generic workloads
+- Works well for stateless or lightly stateful applications
+
+ASR is commonly used for:
+- Application servers
+- Middleware
+- Non-database workloads
+- Tier 1 or Tier 2 systems
+
+---
+
+## Why ASR Is Not Used for SAP HANA DR
+
+SAP HANA has **database-native replication mechanisms** that are:
+- SAP-supported
+- Application-aware
+- Designed for data consistency
+
+Key limitations of ASR for SAP HANA:
+
+- ASR operates at the VM level, not the database level
+- It is not application-consistent for SAP HANA
+- SAP does not support ASR as the primary DR method for HANA databases
+- Database recovery using ASR alone risks data inconsistency
+
+For these reasons, **SAP HANA System Replication** is the supported and recommended DR mechanism.
+
+---
+
+## Recommended Pattern for SAP on Azure
+
+For SAP landscapes on Azure:
+
+- **SAP HANA**
+  - Use SAP HANA System Replication for DR
+  - Managed and controlled at the database level
+
+- **SAP Application Servers**
+  - Can use ASR in some scenarios
+  - Often rebuilt or started manually in DR
+  - Sometimes protected using images or automation instead of ASR
+
+This hybrid approach balances:
+- SAP supportability
+- Operational safety
+- Cost
+
+---
+
+## Interview-Safe Explanation
+
+A clear way to explain this in interviews:
+
+> “Azure Site Recovery is excellent for many workloads, but SAP HANA requires database-native replication.  
+> For SAP systems, we rely on HANA System Replication for DR and may optionally use ASR for non-database components.”
+
+This answer shows:
+- Azure knowledge
+- SAP knowledge
+- Architectural maturity
+
+---
+
+## Relationship to Workload Tiering
+
+ASR usage is often influenced by system tier:
+
+- Tier 0 SAP systems:
+  - HANA System Replication
+  - Minimal reliance on ASR
+
+- Tier 1 systems:
+  - Possible ASR usage for application layer
+
+- Tier 2 / Tier 3 systems:
+  - ASR or backup/restore may be sufficient
+
+ASR is a tool — not a one-size-fits-all solution.
