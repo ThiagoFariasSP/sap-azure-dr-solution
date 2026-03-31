@@ -1,0 +1,90 @@
+# Cost Considerations for SAP on Azure Disaster Recovery
+
+Cost is a primary design constraint for SAP Disaster Recovery architectures.  
+Enterprise SAP DR solutions are designed to balance **business risk, recovery objectives, and operational cost**.
+
+This document explains the main cost drivers and why most SAP DR designs use an **Active / Passive** model.
+
+---
+
+## Primary Cost Drivers
+
+### 1. Compute (Virtual Machines)
+
+SAP workloads rely on large, memory-optimized virtual machines, especially for SAP HANA.
+
+**Primary Region**
+- SAP Application Servers (VMs)
+- SAP HANA primary database (large memory footprint)
+
+**DR Region**
+- SAP Application Servers in standby mode
+- SAP HANA secondary database (warm or cold standby)
+
+Common cost optimization strategies:
+- Smaller VM sizes in the DR region
+- Warm standby (VMs running but lightly used)
+- Cold standby (VMs stopped, higher RTO, lower cost)
+
+---
+
+### 2. Storage
+
+Storage costs are unavoidable for SAP workloads.
+
+- Premium SSD or Ultra Disk required for SAP HANA
+- Disks must exist in both primary and DR regions
+- Storage is billed even when VMs are stopped
+
+For SAP, storage cost is driven by **performance requirements**, not availability choices.
+
+---
+
+### 3. Network
+
+Network costs include:
+- Inter-region replication traffic (SAP HANA System Replication)
+- VPN or ExpressRoute connectivity
+- Data egress between Azure regions
+
+Network costs are typically predictable but must be included in DR planning.
+
+---
+
+### 4. Licensing
+
+Licensing often represents a significant portion of SAP DR cost.
+
+- SAP application licenses
+- SAP HANA licenses
+- Operating system licenses (RHEL, SLES, Windows)
+
+Even passive or standby environments may require licenses depending on contract terms.
+
+---
+
+## Why Active / Passive Is the Default Choice
+
+Active / Passive DR is the most common SAP DR model because it:
+
+- Avoids doubling compute costs
+- Avoids doubling SAP licensing costs
+- Reduces operational complexity
+- Aligns with SAP-supported architectures
+
+Key principle:
+
+> SAP Disaster Recovery design is always a trade-off between cost, recovery time, and business impact.
+
+---
+
+## Cost Optimization Through Tiering
+
+Not all SAP systems require the same level of DR investment.
+
+Tiering allows organizations to:
+- Focus DR spend on mission-critical systems
+- Reduce cost for non-production environments
+- Align RTO/RPO with real business needs
+
+This is addressed in the **Workload Tiering** section of the architecture documentation.
