@@ -1,0 +1,97 @@
+# Hybrid On‑Premises Extension for SAP on Azure DR
+
+Most enterprise SAP landscapes are not cloud-only.  
+Even when SAP runs on Azure, it often depends on **on‑premises systems** for integration, data exchange, or user access.
+
+This document explains how hybrid connectivity fits into the SAP on Azure Disaster Recovery architecture.
+
+---
+
+## Why Hybrid SAP Landscapes Are Common
+
+Common on‑premises dependencies include:
+- Legacy SAP systems
+- Non-SAP backend systems
+- Identity services
+- Reporting or data warehouses
+- Operational tools still hosted on‑prem
+
+As a result, SAP DR designs must consider **hybrid failure scenarios**, not just Azure regions.
+
+---
+
+## Connectivity Options
+
+### VPN Connectivity
+- Quick to deploy
+- Lower cost
+- Internet-based
+- Suitable for non-critical or backup connectivity
+
+Used mainly for:
+- Smaller environments
+- Non-production systems
+- Temporary or backup connectivity
+
+---
+
+### ExpressRoute
+- Private, dedicated connectivity
+- Predictable latency
+- Higher throughput
+- Higher cost
+
+Used mainly for:
+- Production SAP systems
+- Tier 0 workloads
+- Mission-critical integrations
+
+ExpressRoute is the most common choice for enterprise SAP production environments.
+
+---
+
+## Hybrid Considerations During Disaster Recovery
+
+In a DR scenario, the following must be validated:
+- On‑prem systems can reach the DR Azure region
+- Network routes are updated or pre-configured
+- DNS changes are planned and tested
+- Security rules allow traffic to the DR environment
+
+DR is not only about compute and data — **connectivity is part of recovery**.
+
+---
+
+## Failure Domains Explained
+
+Hybrid SAP DR must consider multiple failure domains:
+- Application failure
+- VM or host failure
+- Availability Zone failure
+- Azure regional failure
+- On‑premises datacenter failure
+- Network connectivity failure
+
+A mature DR design explicitly documents which failures are covered — and which are not.
+
+---
+
+## Interview-Safe Explanation
+
+A strong way to explain hybrid SAP DR:
+
+> “Even when SAP runs on Azure, many enterprises still depend on on‑prem systems.  
+> That’s why SAP DR architectures must consider not only regional recovery, but also hybrid connectivity and network dependencies.”
+
+This demonstrates real-world experience.
+
+---
+
+## Relationship to Previous Architecture Steps
+
+Hybrid connectivity:
+- Does not change SAP HANA replication design
+- Does not replace DR mechanisms
+- Complements multi-region DR by ensuring end-to-end recovery
+
+Hybrid is an **extension**, not a redesign.
