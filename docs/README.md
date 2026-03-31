@@ -124,7 +124,9 @@ The following documents provide deeper insight into key design decisions behind 
   [`docs/workload-tiering.md`](docs/workload-tiering.md)  
   Describes Tier 0, Tier 1, and Tier 2 SAP systems and how DR investment is aligned with business criticality.
 
-These documents complement the architecture diagrams and are intended for detailed technical discussions and interviews.
+- **Azure Site Recovery Positioning**
+  docs/azure-site-recovery-positioning.md  
+  Explains where Azure Site Recovery fits in SAP architectures and why SAP HANA relies on database-native replication instead of VM-level DR.
 
 ## Out of Scope (for now)
 
