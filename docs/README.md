@@ -110,6 +110,21 @@ SAP requires:
 For these reasons, SAP on Azure is deployed on **Infrastructure as a Service (IaaS)** rather than PaaS offerings.
 
 ---
+---
+
+## Architecture Deep Dives
+
+The following documents provide deeper insight into key design decisions behind this architecture:
+
+- **Cost Considerations**  
+  [`docs/cost-considerations.md`](docs/cost-considerations.md)  
+  Explains the main cost drivers for SAP Disaster Recovery on Azure and why Active / Passive is the most common approach.
+
+- **Workload Tiering**  
+  [`docs/workload-tiering.md`](docs/workload-tiering.md)  
+  Describes Tier 0, Tier 1, and Tier 2 SAP systems and how DR investment is aligned with business criticality.
+
+These documents complement the architecture diagrams and are intended for detailed technical discussions and interviews.
 
 ## Out of Scope (for now)
 
